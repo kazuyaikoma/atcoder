@@ -11,3 +11,6 @@
 
 # VSCode debug setting
 **/**/.vscode/
+
+# ruby version
+**/.ruby-version
