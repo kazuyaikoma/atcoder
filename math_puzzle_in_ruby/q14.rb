@@ -15,17 +15,11 @@
 @max_depth = 0
 
 def search(remaining, prev, depth)
-  next_c = remaining.select { |c| prev[-1] == c[0] }
-  if next_c.size.positive?
-    next_c.each do |c|
-      search(remaining - [c], c, depth + 1)
-    end
-  else
-    @max_depth = [@max_depth, depth].max
-  end
+  nexts = remaining.select { |r| r[0] == prev[-1] }
+  nexts.each { |n| search(remaining - [n], n, depth + 1) }
+  @max_depth = [@max_depth, depth].max if nexts.empty?
 end
 
-@countries.each do |c|
-  search(@countries - [c], c, 1)
-end
+@countries.each { |c| search(@countries - [c], c, 1) }
+
 puts @max_depth
