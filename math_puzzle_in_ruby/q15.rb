@@ -1,14 +1,22 @@
-def search(a, b)
-  return 0 if b < a
-  return 1 if a == b
-  cnt = 0
-  (1..4).each do |a_step|
-    (1..4).each do |b_step|
-      cnt += search(a + a_step, b - b_step)
+@steps = 10
+@jump = 4
+@cnt = 0
+
+def search_patterns(a_step, b_step)
+  return if a_step > b_step
+  (1..@jump).each do |a|
+    (1..@jump).each do |b|
+      a_pos = a_step + a
+      b_pos = b_step - b
+      if a_pos == b_pos
+        @cnt += 1
+      else
+        search_patterns(a_pos, b_pos)
+      end
     end
   end
-  cnt
 end
 
-stairs = 10
-puts search(0, stairs)
+search_patterns(0, @steps)
+
+puts @cnt
