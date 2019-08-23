@@ -1,6 +1,4 @@
-input = gets.to_s.split(' ').map(&:to_i)
-a = input[0]
-b = input[1]
+a, b = gets.split.map(&:to_i)
 
 cnt = 0
 num = (b - a).abs
