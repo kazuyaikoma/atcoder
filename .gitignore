@@ -14,3 +14,6 @@
 
 # ruby version
 **/.ruby-version
+
+# python version
+.python-version
