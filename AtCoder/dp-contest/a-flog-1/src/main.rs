@@ -10,13 +10,14 @@ where T: FromStr, <T as FromStr>::Err : Debug {
 }
 
 fn main() {
-    let vec: Vec<i32> = read_line();
+    let _vec: Vec<usize> = read_line();
     let hs: Vec<i32> = read_line();
 
     let mut dp: Vec<i32> = Vec::new();
-    dp.push(0);
-    dp.push((hs[1] - hs[0]).abs());
-    for _ in 2..hs.len() { dp.push(0); }
+    for _ in 0..hs.len() { dp.push(0); }
+    dp[0] = 0;
+    dp[1] = (hs[0] - hs[1]).abs();
+
     for i in 2..hs.len() {
         dp[i] = cmp::min(
                     dp[i - 2] + (hs[i] - hs[i - 2]).abs(),
