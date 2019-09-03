@@ -14,6 +14,7 @@ fn main() {
     let hs: Vec<i32> = read_line();
 
     let mut dp: Vec<i32> = Vec::new();
+    // init with zero
     for _ in 0..hs.len() { dp.push(0); }
     dp[0] = 0;
     dp[1] = (hs[0] - hs[1]).abs();
