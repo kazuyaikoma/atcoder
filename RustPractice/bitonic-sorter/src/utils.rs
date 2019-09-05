@@ -5,7 +5,7 @@ use super::SortOrder;
 
 pub fn new_u32_vec(n: usize) -> Vec<u32> {
   // init RNG. use seed in order to reproducibility
-  let mut rng = Pcg64Mcg::from_seed([0; 16]);
+  let rng = Pcg64Mcg::from_seed([0; 16]);
   rng.sample_iter(&Standard).take(n).collect()
 }
 
