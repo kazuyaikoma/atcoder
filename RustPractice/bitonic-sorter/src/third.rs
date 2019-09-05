@@ -56,7 +56,9 @@ fn compare_and_swap<T, F>(x: &mut [T], forward: bool, comparator: &F)
 
 #[cfg(test)]
 mod tests {
-  use super::sort_by;
+  use super::{sort_by, sort};
+  use super::SortOrder::*;
+  use crate::utils::{new_u32_vec, is_sorted};
 
   #[derive(Debug, PartialEq)]
   struct Student {
@@ -113,5 +115,25 @@ mod tests {
     );
 
     assert_eq!(x, expected);
+  }
+
+  #[test]
+  fn sort_u32_large() {
+    {
+      // generate randn of 2 to the 16th power (= 65536)
+      let mut x = new_u32_vec(65536);
+      // ascending sort
+      assert_eq!(sort(&mut x, &Ascending), Ok(()));
+      // confirm that the result is collect
+      assert!(is_sorted(&x, &Ascending));
+    }
+    {
+      // generate randn of 2 to the 16th power (= 65536)
+      let mut x = new_u32_vec(65536);
+      // ascending sort
+      assert_eq!(sort(&mut x, &Descending), Ok(()));
+      // confirm that the result is collect
+      assert!(is_sorted(&x, &Descending));
+    }
   }
 }
