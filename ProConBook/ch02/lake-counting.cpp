@@ -18,29 +18,26 @@ int main() {
   for (int x = 0; x < N; x++) {
     for (int y = 0; y < M; y++) {
       if (field[x][y]) {
-        dfs(x, y);
         count++;
+        dfs(x, y);
       }
     }
   }
   printf("%d\n", count);
-
   return 0;
 }
 
 void dfs(int x, int y) {
   // 現在地をfalseにする
   field[x][y] = false;
-
+  // 8近傍を見る
   for (int dx = -1; dx <= 1; dx++) {
     for (int dy = -1; dy <= 1; dy++) {
       int nx = x + dx, ny = y + dy;
-      bool isLake = field[nx][ny];
-      if (0 <= nx && nx < N && 0 <= ny && ny < M && isLake) {
+      if (0 <= nx && nx < N && 0 <= ny && ny < M && field[nx][ny]) {
+        field[nx][ny] = false;
         dfs(nx, ny);
       }
     }
   }
-  return;
 }
-
