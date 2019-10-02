@@ -19,6 +19,9 @@ int main() {
     for (int y = 0; y < M; y++) {
       if (field[x][y]) {
         count++;
+        // (補足)
+        // これが1行下だと答えが1になってしまう。
+        // dfsでlakeを発見する前に、dfs自身が隣接する8近傍のセルをFalseに変えてしまうから。
         dfs(x, y);
       }
     }
@@ -35,7 +38,6 @@ void dfs(int x, int y) {
     for (int dy = -1; dy <= 1; dy++) {
       int nx = x + dx, ny = y + dy;
       if (0 <= nx && nx < N && 0 <= ny && ny < M && field[nx][ny]) {
-        field[nx][ny] = false;
         dfs(nx, ny);
       }
     }
