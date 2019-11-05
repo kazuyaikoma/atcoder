@@ -1,5 +1,5 @@
 n = gets.to_i
-hs = gets.split(' ').map(&:to_i)
+hs = gets.split.map(&:to_i)
 dp = Array.new(n, 0)
 dp[1] = (hs[1] - hs[0]).abs
 
