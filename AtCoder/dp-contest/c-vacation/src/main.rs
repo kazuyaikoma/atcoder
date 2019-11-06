@@ -44,5 +44,5 @@ fn main() {
         dp[n - 1][1],
         dp[n - 1][2],
     ];
-    println!("{}", ans.iter().max().unwrap());
+    println!("{}", ans.into_iter().max().unwrap());
 }
