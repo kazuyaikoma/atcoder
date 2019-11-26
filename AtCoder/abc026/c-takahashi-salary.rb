@@ -6,7 +6,7 @@ persons = [Person.new(1, [], -1)]
   persons[i] = Person.new(1, [], gets.to_i - 1)
 end
 
-(n - 1).downto(0) do |i| 
+(n - 1).downto(0) do |i|
   if persons[i].subs_salaries.empty?
     persons[i].salary = 1
   else
