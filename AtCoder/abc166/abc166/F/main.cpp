@@ -12,7 +12,7 @@ string ans[100005];
 void dfs(long long i, long long A, long long B, long long C) {
   if (A < 0 || B < 0 || C < 0) return;
   if (i == n) {
-    cout << "Yes" << endl;
+    cout << YES << endl;
     for (int j=0; j<n; j++) cout << ans[j] << endl;
     exit(0);
   } else {
@@ -39,7 +39,7 @@ void solve(long long N, long long A, long long B, long long C, std::vector<std::
   n = N;
   S = s;
   dfs(0, A, B, C);
-  cout << "No" << endl;
+  cout << NO << endl;
 }
 
 int main(){
