@@ -16,7 +16,8 @@ vector<string> split(string str, char del) {
 }
 
 void solve(long long A, long double B){
-  long double ret = B * A;
+  long double ret = A * B * 100;
+  ret /= 100;
   vector<string> v = split(to_string(ret), '.');
   cout << v[0] << endl;
 }

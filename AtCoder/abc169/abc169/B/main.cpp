@@ -3,23 +3,23 @@ using namespace std;
 
 
 void solve(long long N, std::vector<long long> A){
-  long long ret = 1;
-  bool zero = false;
-  for (int i=0; i<N; i++) {
-    if (A[i] == 0) zero = true;
-  }
-  if (zero) {
+  long long max_num = 1'000'000'000'000'000'000;
+  sort(A.begin(), A.end());
+
+  if (A.size() < 1 || A[0] == 0) {
     cout << 0 << endl;
     return;
   }
 
+  unsigned long long ret = 1;
   for (int i=0; i<N; i++) {
-    if (to_string(ret).size() + to_string(A[i]).size() - 1 >= 20) {
+    long long div = max_num / ret;
+    if (div + 1 < A[i]) {
       cout << -1 << endl;
       return;
     }
     ret *= A[i];
-    if (ret > 1000000000000000000) {
+    if (ret > max_num) {
       cout << -1 << endl;
       return;
     };
