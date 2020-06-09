@@ -16,10 +16,10 @@ vector<string> split(string str, char del) {
 }
 
 void solve(long long A, long double B){
-  long double ret = A * B * 100;
-  ret /= 100;
-  vector<string> v = split(to_string(ret), '.');
-  cout << v[0] << endl;
+  vector<string> v = split(to_string(B), '.');
+  long long b = stol(v[0] + v[1][0] + v[1][1]);
+  long long ret = A * b / 100;
+  cout << ret << endl;
 }
 
 int main(){
