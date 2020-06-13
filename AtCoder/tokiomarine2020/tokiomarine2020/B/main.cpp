@@ -5,19 +5,8 @@ const string YES = "YES";
 const string NO = "NO";
 
 void solve(long long A, long long V, long long B, long long W, long long T){
-  if (W >= V) {
-    cout << NO << endl;
-    return;
-  }
-
-  long long abs_ab = abs(A-B), abs_vw = abs(V-W);
-  if (abs_ab % abs_vw != 0) {
-    cout << NO << endl;
-    return;
-  }
-
-  if (abs_ab / abs_vw > T) cout << NO << endl;
-  else cout << YES << endl;
+  string ans = (abs(A-B) > T * (V-W)) ? NO : YES;
+  cout << ans << endl;
 }
 
 int main(){
