@@ -3,20 +3,21 @@ using namespace std;
 
 
 void solve(long long N, std::vector<long long> A){
-  sort(A.begin(), A.end());
-  for (long long idx = 0; idx < A.size(); idx++) {
-    auto iter = A.begin()+idx+1;
-    while (iter != A.end()) {
-      if (*iter % A[idx] == 0) {
-        iter = A.erase(iter);
-      }
-      else iter++;
+  const long long M = 1'000'000;
+  vector<long long> cnt(M, 0);
+  for (long long a : A) {
+    if (cnt[a] != 0) {
+      cnt[a] = 2;
+      continue;
     }
+    for (long long i=a; i<=M; i+=a) cnt[i]++;
   }
 
-  long long ret = 0;
-  if (A.size() > 1) ret = A.size();
-  cout << ret << endl;
+  long long ans = 0;
+  for (auto a : A) {
+    if (cnt[a] == 1) ans++;
+  }
+  cout << ans << endl;
 }
 
 int main(){
