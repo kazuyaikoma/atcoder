@@ -9,6 +9,7 @@ class TestSelectSort(unittest.TestCase):
 
     時間計算量 O(N^2)
     空間計算量 O(1)
+    不安定ソート
     """
     def sort(self, arr: List[int]) -> List[int]:
         for i, elm in enumerate(arr):

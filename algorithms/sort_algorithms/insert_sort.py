@@ -9,6 +9,7 @@ class TestInsertSort(unittest.TestCase):
 
     時間計算量 O(N^2)
     空間計算量 O(1)
+    安定ソート
     """
     def sort(self, arr: List[int]) -> List[int]:
         for i in range(1, len(arr)):
