@@ -28,10 +28,10 @@ class TestInsertSort(unittest.TestCase):
             return low
 
         mid = (low + high) // 2
-        if arr[mid] < target:
-            return self.search(arr, mid+1, high, target)
-        elif target < arr[mid]:
+        if target < arr[mid]:
             return self.search(arr, low, mid-1, target)
+        elif arr[mid] < target:
+            return self.search(arr, mid+1, high, target)
         else:
             return mid
 
@@ -40,6 +40,7 @@ class TestInsertSort(unittest.TestCase):
             if i == 0:
                 continue
             idx = self.search(arr, 0, i-1, elm)
+            # 最後のarr[i+1:]は、arr[i]はelmであり、それを除外して結合するためarr[i+1:]としている
             arr = arr[:idx] + [elm] + arr[idx:i] + arr[i+1:]
         return arr
 
