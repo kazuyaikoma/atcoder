@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import sys
+import math
 
 
 # 全探索の場合
@@ -18,11 +19,14 @@ def brute_force_solve(N: int):
 
 
 def solve(N: int):
-    digit = N // 9
+    digit = math.ceil(N / 9)
     num = N % 9
 
+    if num == 0:
+        num = 9
+
     arr = []
-    for _ in range(digit+1):
+    for _ in range(digit):
         arr.append(str(num))
     ans = int(''.join(arr))
     print(ans)
