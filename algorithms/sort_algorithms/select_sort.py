@@ -13,6 +13,7 @@ class TestSelectSort(unittest.TestCase):
     """
     def sort(self, arr: List[int]) -> List[int]:
         for i, elm in enumerate(arr):
+            # i以降の範囲で最小値のindexを求める
             min_idx = i
             for j in range(i, len(arr)):
                 if arr[j] < arr[min_idx]:
