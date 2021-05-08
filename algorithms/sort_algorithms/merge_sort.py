@@ -27,7 +27,7 @@ class TestMergeSort(unittest.TestCase):
         merged = []
         left, right = 0, 0
 
-        while left < len(left_arr) and right < len(right_arr):
+        while right < len(right_arr) and left < len(left_arr):
             if left_arr[left] < right_arr[right]:
                 merged.append(left_arr[left])
                 left += 1
@@ -35,10 +35,8 @@ class TestMergeSort(unittest.TestCase):
                 merged.append(right_arr[right])
                 right += 1
 
-        if left < len(left_arr):
-            merged.extend(left_arr[left:])
-        elif right < len(right_arr):
-            merged.extend(right_arr[right:])
+        merged.extend(left_arr[left:])
+        merged.extend(right_arr[right:])
 
         return merged
 
