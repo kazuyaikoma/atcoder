@@ -1,5 +1,6 @@
 import unittest
 from typing import List
+import random
 
 
 class TestMergeSort(unittest.TestCase):
@@ -15,21 +16,21 @@ class TestMergeSort(unittest.TestCase):
             return arr
 
         left, right = [], []
-        pivot = arr[0]
-        pivot_cnt = 0
+        target = random.choice(arr)
+        target_cnt = 0
 
         for elm in arr:
-            if elm < pivot:
+            if elm < target:
                 left.append(elm)
-            elif pivot < elm:
+            elif target < elm:
                 right.append(elm)
             else:
-                pivot_cnt += 1
+                target_cnt += 1
 
         left = self.sort(left)
         right = self.sort(right)
 
-        return left + [pivot] * pivot_cnt + right
+        return left + [target] * target_cnt + right
 
     def test_sort(self):
         arr = [4, 3, 2, 5, 1]
