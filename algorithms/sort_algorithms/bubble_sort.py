@@ -15,7 +15,7 @@ class TestBubbleSort(unittest.TestCase):
         # swapが起きている間はひたすらswap処理のループを回す
         while swapped:
             swapped = False
-            for i in range(0, len(arr)-1):
+            for i in range(len(arr)-1):
                 if arr[i+1] < arr[i]:
                     arr[i+1], arr[i] = arr[i], arr[i+1]
                     # もしswapが起きたらswappedフラグをTrueに切り替え
