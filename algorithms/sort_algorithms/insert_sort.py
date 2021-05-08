@@ -15,16 +15,19 @@ class TestInsertSort(unittest.TestCase):
         for i in range(1, len(arr)):
             elm = arr[i]
 
+            # i - 1以前の範囲での挿入位置を確定するためのidx
             j = i - 1
-            while elm < arr[j] and 0 <= j:
+            while 0 <= j and elm < arr[j]:
                 # whileブロックが実行されるということは、ソートされるということなので
                 # elmを入れるスペースを開けるために1つずつ位置をずらしていく
                 arr[j+1] = arr[j]
                 j -= 1
 
             # while後、min_idx確定時に挿入
+            # whileブロックにてarr[i]は書き変わっている可能性があるため、elmを代入する
+            # (arr = [1, 2, 3]; a = a[1]; とした後、a[1] = 100; としてもa[1] == 2; のまま。
+            # つまり参照ではなく値を直接見ているため。)
             arr[j+1] = elm
-
         return arr
 
     def test_sort(self):
