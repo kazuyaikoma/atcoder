@@ -4,22 +4,18 @@ from typing import List
 
 
 def solve(N: int, A: List[int]):
-    for i, num in enumerate(A):
-        A[i] = num % 200
+    remainders = [val % 200 for val in A]
+    remainders.sort()
 
-    A.sort()
+    ans = 0
     cums = [0] * 200
-    for a in A:
-        cums[a] += 1
+    for val in remainders:
+        cums[val] += 1
 
-    sum = 0
     for cum in cums:
-        if cum == 0 or cum == 1:
-            continue
-        else:
-            sum += cum * (cum-1) / 2
-
-    print(int(sum))
+        if 2 <= cum:
+            ans += cum * (cum-1) / 2
+    print(int(ans))
 
 
 def main():
