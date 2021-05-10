@@ -16,6 +16,7 @@ def solve(N, M, Q, graph, colors, queries):
 def main():
     N, M, Q = map(int, input().split())
 
+    # 隣接行列
     graph = []
     for _ in range(N):
         row = [False for _ in range(N)]
