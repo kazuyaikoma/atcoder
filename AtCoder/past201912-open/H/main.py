@@ -11,9 +11,9 @@ def solve(N: int, C: List[int], Q: int, S: List[List[int]]):
     s = 0
 
     # セット販売対象のCの最小値を記録
-    min_s_C = 1000000000000
-    # セット販売対象ではないCの最小値を記録
-    min_z_C = 1000000000000
+    min_s_C = 1000000001
+    # セット販売対象ではない(全ての)Cの最小値を記録
+    min_z_C = 1000000001
 
     for i in range(N):
         if i % 2 == 0:
