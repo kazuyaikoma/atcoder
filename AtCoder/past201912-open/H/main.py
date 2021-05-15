@@ -4,60 +4,52 @@ from typing import List
 
 def solve(N: int, C: List[int], Q: int, S: List[List[int]]):
     sell = 0
-
     # 全種類販売で売った1種類あたりの枚数
-    z = 0
+    set_cnt = 0
     # セット販売で売った1種類あたりの枚数
-    s = 0
-
+    all_cnt = 0
     # セット販売対象のCの最小値を記録
-    min_s_C = 1000000001
+    min_C_set = 1000000001
     # セット販売対象ではない(全ての)Cの最小値を記録
-    min_z_C = 1000000001
+    min_C_all = min(C)
 
     for i in range(N):
         if i % 2 == 0:
-            min_s_C = min(min_s_C, C[i])
-        else:
-            min_z_C = min(min_z_C, C[i])
+            min_C_set = min(min_C_set, C[i])
 
-    for i in range(Q):
-        query = S[i]
+    for query in S:
         if query[0] == 1:
             x = query[1] - 1
             a = query[2]
 
+            # 値を考慮する場合はset_cnt(セット販売)も考慮に入れる
+            delta = 0
             if x % 2 == 0:
-                card_x = C[x] - z - s
-            else:
-                card_x = C[x] - z
-
-            if a <= card_x:
+                delta = set_cnt
+            if a <= C[x] - all_cnt - delta:
                 C[x] -= a
                 sell += a
-
                 if x % 2 == 0:
-                    min_s_C = min(min_s_C, C[x])
-                else:
-                    min_z_C = min(min_z_C, C[x])
+                    min_C_set = min(min_C_set, C[x])
+                min_C_all = min(min_C_all, C[x])
         elif query[0] == 2:
             a = query[1]
-            if a <= min_s_C - s - z:
-                s += a
+            if a <= min_C_set - all_cnt - set_cnt:
+                set_cnt += a
         elif query[0] == 3:
             a = query[1]
-            if a <= min(min_s_C - s - z, min_z_C - z):
-                z += a
+            if a <= min(min_C_set - all_cnt - set_cnt, min_C_all - all_cnt):
+                all_cnt += a
 
     # セット販売した枚数を合算
-    # sell += (N // 2) * s
     for i in range(N):
         if i % 2 == 0:
-            sell += s
-    # 全種類販売した枚数を合算
-    sell += N * z
+            sell += set_cnt
 
-    print(int(sell))
+    # 全種類販売した枚数を合算
+    sell += N * all_cnt
+
+    print(sell)
 
 
 def main():
