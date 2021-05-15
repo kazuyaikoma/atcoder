@@ -3,35 +3,61 @@ from typing import List
 
 
 def solve(N: int, C: List[int], Q: int, S: List[List[int]]):
-    origin = sum(C)
+    sell = 0
+
+    # 全種類販売で売った1種類あたりの枚数
+    z = 0
+    # セット販売で売った1種類あたりの枚数
+    s = 0
+
+    # セット販売対象のCの最小値を記録
+    min_s_C = 1000000000000
+    # セット販売対象ではないCの最小値を記録
+    min_z_C = 1000000000000
+
+    for i in range(N):
+        if i % 2 == 0:
+            min_s_C = min(min_s_C, C[i])
+        else:
+            min_z_C = min(min_z_C, C[i])
 
     for i in range(Q):
         query = S[i]
         if query[0] == 1:
-            sell = query[2]
-            sell_card_idx = query[1] - 1
-            if sell <= C[sell_card_idx]:
-                C[sell_card_idx] -= sell
-        elif query[0] == 2:
-            sell = query[1]
-            ok = True
-            for j in range(0, len(C), 2):
-                if C[j] - sell < 0:
-                    ok = False
-            if ok:
-                for j in range(0, len(C), 2):
-                    C[j] -= sell
-        elif query[0] == 3:
-            sell = query[1]
-            ok = True
-            for j in range(len(C)):
-                if C[j] - sell < 0:
-                    ok = False
-            if ok:
-                for j in range(len(C)):
-                    C[j] -= sell
+            x = query[1] - 1
+            a = query[2]
 
-    print(origin - sum(C))
+            if x % 2 == 0:
+                card_x = C[x] - z - s
+            else:
+                card_x = C[x] - z
+
+            if a <= card_x:
+                C[x] -= a
+                sell += a
+
+                if x % 2 == 0:
+                    min_s_C = min(min_s_C, C[x])
+                else:
+                    min_z_C = min(min_z_C, C[x])
+        elif query[0] == 2:
+            a = query[1]
+            if a <= min_s_C - s - z:
+                s += a
+        elif query[0] == 3:
+            a = query[1]
+            if a <= min(min_s_C - s - z, min_z_C - z):
+                z += a
+
+    # セット販売した枚数を合算
+    # sell += (N // 2) * s
+    for i in range(N):
+        if i % 2 == 0:
+            sell += s
+    # 全種類販売した枚数を合算
+    sell += N * z
+
+    print(int(sell))
 
 
 def main():
