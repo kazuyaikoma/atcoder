@@ -2,7 +2,7 @@
 import sys
 
 shichi = ['7', '5', '3']
-global ans
+ans = 0
 
 
 def check_shichi(str_num):
@@ -30,7 +30,6 @@ def dfs(N, str_num):
 
 def solve(N: int):
     global ans
-    ans = 0
 
     dfs(N, '7')
     dfs(N, '5')
