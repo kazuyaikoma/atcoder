@@ -3,6 +3,12 @@ import sys
 from typing import List
 from collections import deque
 
+"""
+BFSを使って解いている
+解法の公式解説はこちら
+https://img.atcoder.jp/past202005-open/editorial.pdf
+"""
+
 
 def solve(N: int, X: int, Y: int, xs: "List[int]", ys: "List[int]"):
     visited = []
