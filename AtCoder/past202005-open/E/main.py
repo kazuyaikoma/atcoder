@@ -20,8 +20,8 @@ def solve(N, M, Q, graph, colors, queries):
         print(colors[x])
         if query[0] == 1:
             # スプリンクラー起動
-            for i in graph[x]:
-                colors[i] = colors[x]
+            for target in graph[x]:
+                colors[target] = colors[x]
         elif query[0] == 2:
             colors[x] = query[2]
 
@@ -49,7 +49,7 @@ def main():
         graph[u-1].append(v-1)
         graph[v-1].append(u-1)
 
-    colors = [int(c) for c in input().split()]
+    colors = list(map(int, input().split()))
 
     queries = []
     for _ in range(Q):
