@@ -21,7 +21,6 @@ def solve(R, C, sy, sx, gy, gx, c):
     # Qには(y, x, ゴールまでたどり着くステップ数の累計)を入れていく
     Q.append((sy-1, sx-1, 0))
 
-    ans = 0
     while 0 < len(Q):
         y, x, step = Q.popleft()
         if visited[y][x]:
@@ -29,15 +28,14 @@ def solve(R, C, sy, sx, gy, gx, c):
 
         visited[y][x] = True
         if y == gy-1 and x == gx-1:
-            ans = step
+            print(step)
             break
+
         for dy, dx in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
             args = (y + dy, x + dx, step + 1)
             is_path = c[args[0]][args[1]] == '.'
             if 0 <= args[0] < R and 0 <= args[1] < C and is_path:
                 Q.append(args)
-
-    print(ans)
 
 
 def main():
