@@ -9,7 +9,7 @@ def solve(cards: List[int], Q: int, queries: List[List[int]]):
     # セット販売で売った1種類あたりの枚数
     set_sell = 0
     # 全種類販売で売った1種類あたりの枚数
-    all_sell = 0
+    others_sell = 0
 
     # セット販売対象のcardsの最小値を記録
     min_cards_set = max(cards)
@@ -31,30 +31,31 @@ def solve(cards: List[int], Q: int, queries: List[List[int]]):
             if is_set_card(x):
                 delta = set_sell
 
-            if a <= cards[x] - all_sell - delta:
+            if a <= cards[x] - others_sell - delta:
                 cards[x] -= a
                 sell += a
 
+                # min系の更新
                 if is_set_card(x):
                     min_cards_set = min(min_cards_set, cards[x])
                 min_cards_others = min(min_cards_others, cards[x])
         elif query[0] == 2:
             a = query[1]
-            if a <= min_cards_set - all_sell - set_sell:
+            if a <= min_cards_set - others_sell - set_sell:
                 set_sell += a
         elif query[0] == 3:
             a = query[1]
             if a <= min(
-                    min_cards_set - all_sell - set_sell,
-                    min_cards_others - all_sell
+                    min_cards_set - others_sell - set_sell,
+                    min_cards_others - others_sell
             ):
-                all_sell += a
+                others_sell += a
 
     # セット販売した枚数を合算
     sell += set_sell * math.ceil(len(cards)/2)
 
     # 全種類販売した枚数を合算
-    sell += all_sell * len(cards)
+    sell += others_sell * len(cards)
 
     print(sell)
 
