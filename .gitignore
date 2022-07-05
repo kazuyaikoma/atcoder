@@ -12,6 +12,9 @@
 # VSCode debug setting
 **/**/.vscode/
 
+# IntelliJ
+AtCoder/.idea/**
+
 # ruby version
 **/.ruby-version
 
