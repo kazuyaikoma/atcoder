@@ -3,31 +3,22 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 )
 
-func zorome(n int) bool {
-	r := []rune(strconv.Itoa(n))
-	x := r[0]
-	for _, y := range r {
-		if x != y {
-			return false
-		}
-	}
-	return true
-}
-
 func solve(N int64) {
-	for i, cnt := 1, 0; ; i++ {
-		if zorome(i) {
-			cnt++
-			if cnt == int(N) {
-				fmt.Println(i)
-				return
-			}
-		}
+	digit := math.Ceil(float64(N) / 9)
+	num := N % 9
+	if num == 0 {
+		num = 9
 	}
+	var r []rune
+	for n := 0; n < int(digit); n++ {
+		r = append(r, []rune(strconv.Itoa(int(num)))...)
+	}
+	fmt.Println(string(r))
 }
 
 func main() {
