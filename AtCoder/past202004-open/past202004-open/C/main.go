@@ -2,11 +2,32 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strconv"
 )
 
-func solve(c [][]int64) {
+func replaceAtIdx(in string, r rune, idx int) string {
+	out := []rune(in)
+	out[idx] = r
+	return string(out)
+}
+
+func solve(n int, graph []string) {
+	for i := len(graph) - 2; 0 <= i; i-- {
+		under := graph[i+1]
+		for j := 1; j < 2*n-2; j++ {
+			if []rune(under)[j-1] == 'X' || []rune(under)[j] == 'X' || []rune(under)[j+1] == 'X' {
+				if []rune(graph[i])[j] == '#' {
+					graph[i] = replaceAtIdx(graph[i], 'X', j)
+				}
+			}
+		}
+	}
+
+	for _, g := range graph {
+		fmt.Println(g)
+	}
 }
 
 func main() {
@@ -15,15 +36,12 @@ func main() {
 	const maxBufSize = 1000000
 	scanner.Buffer(make([]byte, initialBufSize), maxBufSize)
 	scanner.Split(bufio.ScanWords)
-	c := make([][]int64, 3)
-	for i := int64(0); i < 3; i++ {
-		c[i] = make([]int64, 3)
+	scanner.Scan()
+	n, _ := strconv.Atoi(scanner.Text())
+	var graph []string
+	for i := 0; i < n; i++ {
+		scanner.Scan()
+		graph = append(graph, scanner.Text())
 	}
-	for i := int64(0); i < 3; i++ {
-		for j := int64(0); j < 3; j++ {
-			scanner.Scan()
-			c[i][j], _ = strconv.ParseInt(scanner.Text(), 10, 64)
-		}
-	}
-	solve(c)
+	solve(n, graph)
 }
