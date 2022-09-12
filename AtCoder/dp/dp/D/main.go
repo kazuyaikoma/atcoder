@@ -8,50 +8,53 @@ import (
 	"strconv"
 )
 
-func max(x, y int64) int64 {
-	if x < y {
-		return y
+func max(a, b int64) int64 {
+	if a < b {
+		return b
 	}
-	return x
+	return a
 }
 
-func listMax(l []int64) int64 {
-	var ret int64 = math.MinInt64
-	for _, n := range l {
-		if ret < n {
-			ret = n
+func maxInList(list []int64) int64 {
+	var min int64 = math.MinInt64
+	for _, n := range list {
+		if n < min {
+			min = n
 		}
 	}
-	return ret
+
+	return min
 }
 
 func solve(N int64, W int64, w []int64, v []int64) {
+	// index 0: 品物の数
+	// index 1: 品物の重さ
+	// dp[index 0][index 1]: ナップサックに入っている品物の価値の総和
 	var dp [][]int64
 	for i := 0; i <= int(N); i++ {
-		var ws []int64
+		var dpRow []int64
 		for j := 0; j <= int(W); j++ {
-			ws = append(ws, math.MinInt64)
+			dpRow = append(dpRow, 0)
 		}
-		dp = append(dp, ws)
+		dp = append(dp, dpRow)
 	}
-	dp[0][0] = 0
 
 	var ans int64 = 0
 	for i := 1; i <= int(N); i++ {
 		for j := 0; j <= int(W); j++ {
 			// 品物iを入れない場合
 			dp[i][j] = max(dp[i][j], dp[i-1][j])
-
 			// 品物iを入れる場合
-			// j: 袋の容量(重さ)
-			// w[i]: 新たに入れる品物の重さ
-			wDiff := j - int(w[i-1])
-			if wDiff >= 0 {
-				dp[i][j] = max(dp[i][j], dp[i-1][wDiff]+v[i-1])
+			diff := j - int(w[i-1])
+			if 0 <= diff {
+				dp[i][j] = max(dp[i][j], dp[i-1][diff]+v[i-1])
+			}
+			if ans < dp[i][j] {
+				ans = dp[i][j]
 			}
 		}
 	}
-	ans = listMax(dp[N])
+
 	fmt.Println(ans)
 }
 
